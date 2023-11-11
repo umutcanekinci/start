@@ -1,4 +1,4 @@
-# ACCOUNT KEEPER
+# START
 
 * This is my first game in the pygameç
 
