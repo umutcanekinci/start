@@ -88,17 +88,17 @@ cd start
 
 3. Create a new branch (e.g., feature/new-feature):
 ```sh
-git checkout -b feature/yenilik
+git checkout -b feature/innovation
 ```
 
 4. Make your changes and commit them:
 ```sh
-git commit -am 'Yeni özellik ekledim'
+git commit -am 'I have added an innovation'
 ```
 
 5. Push your changes to your branch on GitHub:
 ```sh
-git push origin feature/yenilik
+git push origin feature/innovation
 ```
 
 6. Create a pull request.
