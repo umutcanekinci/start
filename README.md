@@ -1,6 +1,6 @@
 # Start
 
-* This is my first game in the pygame. Because of that I have given this name to the project.
+This is my first game in the pygame. Because of that I have given this name to the project.
 
 ## Game Screenshots
 
