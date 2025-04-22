@@ -97,7 +97,7 @@ class Player(object):
 				self.standing = True
 				self.walkCount = 0
 
-		if(self.control == "L" or self.control == "RL"):
+		elif(self.control == "L" or self.control == "RL"):
 			#-# Move Right #-#
 			if(keys[ord('d')]):
 				if(self.x < game.windowWidth - self.MovSpeed - 20):
