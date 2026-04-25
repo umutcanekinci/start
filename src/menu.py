@@ -45,7 +45,7 @@ class Menu:
         setattr(self, f'_btn_{btn_name}_hover', hovered and not pressed)
         setattr(self, f'_btn_{btn_name}_click', hovered and pressed)
 
-    def draw(self, surface: pygame.Surface, countdown: int, pos, p1, p2=None):
+    def draw(self, surface: pygame.Surface, countdown: int, p1, p2=None):
         """Draw the main menu. Pass p2=None for single-player mode."""
         surface.blit(self._background, (0, 0))
         cx, cy = self.window_w // 2, self.window_h // 2
@@ -60,13 +60,14 @@ class Menu:
 
             any_hover = self._btn_1p_hover or self._btn_2p_hover or self._btn_start_hover
             any_click = self._btn_1p_click or self._btn_2p_click or self._btn_start_click
-            if any_hover:
-                self.cursor._state = self.cursor._click
+            new_state = (
+                self.cursor._click if any_hover else
+                self.cursor._click2 if any_click else
+                self.cursor._normal
+            )
+            if new_state is not self.cursor._state:
+                self.cursor._state = new_state
                 self.cursor._frame = 0
-            elif any_click:
-                self.cursor._state = self.cursor._click2
-            else:
-                self.cursor._state = self.cursor._normal
 
         players = [(p1, self._lbl_p1)]
         if p2 is not None:
@@ -82,5 +83,3 @@ class Menu:
         elif 48 <= countdown < 60:
             scaled = pygame.transform.scale(self._wait_frames[48], (300, 300))
             surface.blit(scaled, (250, 30))
-
-        self.cursor.draw(surface, pos)
