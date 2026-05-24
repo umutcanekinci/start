@@ -8,7 +8,7 @@ from audio import AudioManager
 from combat import CombatSystem
 from cursor import Cursor
 from entities import Platform, Player
-from input_handler import KeyboardInputHandler
+from input_handler import AIInputHandler, KeyboardInputHandler
 from menu import Menu
 from renderer import GameRenderer
 from world import GameWorld
@@ -57,20 +57,28 @@ class Game(Application):
             (self._world.platforms[1].x - 64 + 18, settings.FLOOR_Y), "R"
         )
         self._p2 = self._make_player(
-            (self._world.platforms[0].x + self._world.platforms[0].width - 17, settings.FLOOR_Y), "L"
+            (self._world.platforms[0].x + self._world.platforms[0].width - 17, settings.FLOOR_Y), "L", is_p2=True
         )
         self._p1.left = True
         self._p1.be_peasant()
         self._p2.be_peasant()
+        self._bind_ai()
         self._refresh_scores()
 
         self._audio.play_menu()
 
     # ------------------------------------------------------------------ helpers
 
-    def _make_player(self, location, control: str) -> Player:
-        effective = "RL" if not self._world.two_players else control
-        return Player(self._world, location, KeyboardInputHandler(effective))
+    def _make_player(self, location, control: str, is_p2: bool = False) -> Player:
+        if not self._world.two_players:
+            handler = AIInputHandler() if is_p2 else KeyboardInputHandler("RL")
+        else:
+            handler = KeyboardInputHandler(control)
+        return Player(self._world, location, handler)
+
+    def _bind_ai(self) -> None:
+        if isinstance(self._p2._input, AIInputHandler):
+            self._p2._input.bind(self._p2, self._p1)
 
     def _refresh_scores(self):
         self._score_surfs[0] = self._font_hud.render(f"P1   {self._p1.score}", True, settings.WHITE)
@@ -85,23 +93,23 @@ class Game(Application):
         }[name]
 
     def _reset_players(self):
-        self._world.two_players = True
         self._p1 = self._make_player(
             (self._world.platforms[1].x - 64 + 18, settings.FLOOR_Y), "R"
         )
         self._p2 = self._make_player(
-            (self._world.platforms[0].x + self._world.platforms[0].width - 17, settings.FLOOR_Y), "L"
+            (self._world.platforms[0].x + self._world.platforms[0].width - 17, settings.FLOOR_Y), "L", is_p2=True
         )
         self._p1.left = True
         self._p1.be_peasant()
         self._p2.be_peasant()
+        self._bind_ai()
         self._intro_seq  = random.choice((1, 2, 3))
         self._intro_flag = False
         self._refresh_scores()
 
     # -------------------------------------------------------- Application overrides
 
-    def on_exit(self) -> None:
+    def on_exit_request(self) -> None:
         if self._state == self.STATE_GAME:
             self._audio.stop_game()
             self._world.bullets.clear()
@@ -115,12 +123,9 @@ class Game(Application):
             self._countdown = 100
             self._state = self.STATE_MENU
         else:
-            super().on_exit()
+            super().on_exit_request()
 
     def handle_event(self, event: pygame.event.Event) -> None:
-        if event.type == pygame.QUIT:
-            self.exit()
-            return
         if self._state == self.STATE_MENU:
             self._handle_menu_event(event)
         elif self._state == self.STATE_LEVEL_SELECT:
@@ -158,6 +163,8 @@ class Game(Application):
                 self._p1.control = "RL"
             elif self._btn_rect('2p').collidepoint(pos):
                 self._world.two_players = True
+                self._p1.control = "R"
+                self._p2.control = "L"
 
     def _update_menu(self) -> None:
         self._update_menu_button_states(self.mouse.position)
@@ -231,21 +238,19 @@ class Game(Application):
 
         self._audio.play_game()
 
-        if self._world.two_players:
-            self._vampire = random.choice((self._p1, self._p2))
-            self._vampire.be_vampire()
-            self._peasant = self._p2 if self._vampire is self._p1 else self._p1
+        self._vampire = random.choice((self._p1, self._p2))
+        self._vampire.be_vampire()
+        self._peasant = self._p2 if self._vampire is self._p1 else self._p1
 
         self._state = self.STATE_GAME
 
     def _update_game(self) -> None:
         self._p1.update()
-        if self._world.two_players:
-            self._p2.update()
-            winner = self._combat.resolve(self._vampire, self._peasant)
-            if winner is not None:
-                winner.score += 1
-                self._vampire, self._peasant = self._combat.begin_round(
-                    self._vampire, self._p1, self._p2
-                )
-                self._refresh_scores()
+        self._p2.update()
+        winner = self._combat.resolve(self._vampire, self._peasant)
+        if winner is not None:
+            winner.score += 1
+            self._vampire, self._peasant = self._combat.begin_round(
+                self._vampire, self._p1, self._p2
+            )
+            self._refresh_scores()

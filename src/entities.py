@@ -98,11 +98,9 @@ class Player:
 
         new_x = self.x + self.vel_x
         if new_x > self._world.window_w - 20:
-            new_x      = -20.0
-            self.vel_x = 0.0
+            new_x -= self._world.window_w
         elif new_x < -20:
-            new_x      = float(self._world.window_w - 20)
-            self.vel_x = 0.0
+            new_x += self._world.window_w
         self.x = new_x
 
     def jump(self):

@@ -30,7 +30,7 @@ class GameRenderer:
             bullet.draw(self._window)
 
         self._draw_sprite_hud(p1, vampire)
-        if self._world.two_players and p2 is not None:
+        if p2 is not None:
             self._draw_sprite_hud(p2, vampire)
 
         self._draw_top_hud(p1, p2, current_level, score_surfs)
@@ -42,7 +42,7 @@ class GameRenderer:
         player.draw(self._window)
 
     def _draw_role_tag(self, player, ix, iy, vampire):
-        is_vampire = self._world.two_players and vampire is player
+        is_vampire = vampire is player
         role_lbl = self._lbl_vampire if is_vampire else self._lbl_peasant
         tag_x = ix + (player.width - role_lbl.get_width()) // 2
         tag_y = iy - 46
@@ -72,7 +72,7 @@ class GameRenderer:
         pygame.draw.rect(self._window, settings.BLUE, p1_rect, 1)
         self._window.blit(p1_surf, (pad, (panel_h - p1_surf.get_height()) // 2))
 
-        if self._world.two_players and p2 is not None:
+        if p2 is not None:
             p2_surf = score_surfs[1]
             p2_w    = p2_surf.get_width() + pad * 2
             p2_rect = pygame.Rect(self._world.window_w - p2_w, 0, p2_w, panel_h)
