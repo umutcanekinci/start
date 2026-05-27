@@ -1,119 +1,85 @@
 # Start
 
-This is my first game in the pygame. Because of that I have given this name to the project.
+My first pygame project — hence the name. A local 1-or-2-player platformer where one player is the vampire and the other is the peasant. Each round the role assignments are randomised.
 
-## Game Screenshots
-
-![alt text](https://github.com/umutcanekinci/start/blob/main/images/samples/sample-1.png?raw=true)
-![alt text](https://github.com/umutcanekinci/start/blob/main/images/samples/sample-2.png?raw=true)
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Requirments
-
-To run the project, you will need the following:
-
-- Python 3.x
-- Required libraries (listed below)
-    - pygame=2.5.2
-
-### Installation
-
-If you prefer to use the precompiled executable without installation, you can skip the setup and run the __main__.exe file directly.
-
-
-Follow these steps to install the required libraries:
-
-1. Clone this project:
-    ```sh
-    git clone https://github.com/umutcanekinci/start.git
-    cd start
-    ```
-
-2. Create a virtual environment:
-    ```sh
-    python -m venv venv
-    source venv/bin/activate # If you are using Windows: venv\Scripts\activate
-    ```
-
-3. Install the required packages:
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-### Running the Game
-
-To start the game, use the following command:
-```sh
-python __main__.py
-```
+![Gameplay](docs/preview.gif)
 
 ## Gameplay
 
-The objective of the game: 
+- In every round, one player becomes the **vampire** and the other a **peasant**, chosen randomly.
+- The vampire is **faster** and wins by catching/touching the peasant.
+- Only the peasant can **fire bullets**.
+- 1-player mode pits you against a built-in **AI opponent** with separate vampire / peasant behaviours.
 
-* In every round, a player wiil be vampire and other one will be peasant randomly. Catch the peasant if you are the vampire, otherwise try to not be catched!
-* The vampire is faster than peasants.
-* Only the peasant can fire.
-* I have not added an enemy ai so one player mode is not available. It should be added in future paths.
-* I took musics and pictures from google searching without getting license, I know this is not legal. This is my first project so (I hope) this can be ignored.
+### Screenshots
 
-#### Controls:
+| Menu | Level select | Round in progress |
+|------|--------------|-------------------|
+| ![](docs/screenshot-1.png) | ![](docs/screenshot-2.png) | ![](docs/screenshot-3.png) |
 
-##### Player 1
+### Controls
 
-* Move ==> ARROW KEYS
+| Action | Player 1 | Player 2 |
+|---|---|---|
+| Move | Arrow keys | WASD |
+| Jump | Up arrow | W |
+| Fire | Right Ctrl | Space |
 
-* Fire ==> CONTROL
+In 1-player mode you control **both keysets** and play against the AI.
 
-##### Player 2
+## Requirements
 
-* Move ==> W, A, S, D
+- Python 3.12+
+- [pygame-ce](https://github.com/pygame-community/pygame-ce) (resolved automatically from `pyproject.toml` / `uv.lock`)
+- [uv](https://docs.astral.sh/uv/) (optional but recommended)
 
-* Fire ==> SPACE
+## Running
+
+```bash
+git clone --recurse-submodules https://github.com/umutcanekinci/start.git
+cd start
+uv sync
+uv run python __main__.py
+```
+
+If you forgot `--recurse-submodules`: `git submodule update --init`.
+
+Without `uv`: `pip install .` then `python __main__.py`.
+
+## Project layout
+
+```
+__main__.py            Entry point — injects src/ + src/pygame_core/ into sys.path
+src/game.py            Game class — state machine over menu / level-select / game
+src/world.py           GameWorld dataclass (platforms, bullets, window dims)
+src/entities.py        Player, Platform, Projectile
+src/combat.py          Bullet physics + round transitions
+src/input_handler.py   KeyboardInputHandler + AIInputHandler protocols
+src/menu.py            Main-menu drawing + button states
+src/renderer.py        Level-select + in-game drawing
+src/audio.py           Menu / game music
+src/cursor.py          Custom multi-state cursor
+src/settings.py        Physics, combat, colors, and 3 level layouts
+src/pygame_core/       Engine submodule (used only for Application + Mouse + GameObject)
+assets/                Images and sounds
+```
+
+See [CLAUDE.md](CLAUDE.md) for the full architecture overview.
 
 ## Contributing
 
-If you would like to contribute, please follow these steps:
+1. Fork this repository.
+2. Clone your fork: `git clone --recurse-submodules https://github.com/<you>/start.git`
+3. Create a branch: `git checkout -b feature/<your-feature>`
+4. Commit + push: `git commit -am "<message>" && git push origin feature/<your-feature>`
+5. Open a pull request.
 
-1. Fork this repository (click the Fork button at the top right).
+## Author
 
-2. Clone your forked repository locally:
-```sh
-git clone https://github.com/umutcanekinci/start.git
-cd start
-```
+Umutcan Ekinci — [umutcannekinci@gmail.com](mailto:umutcannekinci@gmail.com)
 
-3. Create a new branch (e.g., feature/new-feature):
-```sh
-git checkout -b feature/innovation
-```
-
-4. Make your changes and commit them:
-```sh
-git commit -am 'I have added an innovation'
-```
-
-5. Push your changes to your branch on GitHub:
-```sh
-git push origin feature/innovation
-```
-
-6. Create a pull request.
-
-## Authors
-
-Umutcan Ekinci - Developer
-
-
-See also the list of <a href="https://github.com/umutcanekinci/start/contributors">contributors</a> who participated in this project.
+See also the [contributors](https://github.com/umutcanekinci/start/contributors).
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For questions or suggestions, feel free to contact me at umutcannekinci@gmail.com.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
