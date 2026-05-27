@@ -38,7 +38,7 @@ class Player:
         self.vampire = False
 
         self._shoot_timer = 0
-        self._jump_sound  = pygame.mixer.Sound('res/sounds/jump.wav')
+        self._jump_sound  = pygame.mixer.Sound('assets/sounds/jump.wav')
 
         self.hitbox     = pygame.Rect(0, 0, 0, 0)
         self.walk_left  = []
@@ -59,15 +59,15 @@ class Player:
         self.hitbox = pygame.Rect(int(self.x) + ox, int(self.y) + oy, w, h)
 
     def be_vampire(self):
-        self.walk_right = [pygame.image.load(f'res/images/vampire/R{i}E.png') for i in range(1, 10)]
-        self.walk_left  = [pygame.image.load(f'res/images/vampire/L{i}E.png') for i in range(1, 10)]
+        self.walk_right = [pygame.image.load(f'assets/images/vampire/R{i}E.png') for i in range(1, 10)]
+        self.walk_left  = [pygame.image.load(f'assets/images/vampire/L{i}E.png') for i in range(1, 10)]
         self.mov_speed  = settings.VAMPIRE_SPEED
         self.vampire    = True
         self._update_hitbox()
 
     def be_peasant(self):
-        self.walk_right = [pygame.image.load(f'res/images/peasant/R{i}.png') for i in range(1, 10)]
-        self.walk_left  = [pygame.image.load(f'res/images/peasant/L{i}.png') for i in range(1, 10)]
+        self.walk_right = [pygame.image.load(f'assets/images/peasant/R{i}.png') for i in range(1, 10)]
+        self.walk_left  = [pygame.image.load(f'assets/images/peasant/L{i}.png') for i in range(1, 10)]
         self.mov_speed  = settings.PLAYER_SPEED
         self.vampire    = False
         self._update_hitbox()
@@ -199,7 +199,7 @@ class Platform:
         self.x, self.y = location
         self.width     = width
         self.height    = height
-        img = pygame.image.load("res/images/platform.png")
+        img = pygame.image.load("assets/images/platform.png")
         self.image = pygame.transform.scale(img, (width, height))
 
     def draw(self, surface: pygame.Surface):

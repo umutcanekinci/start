@@ -17,28 +17,28 @@ class Menu:
         self._lbl_p1  = self._font_sm.render("P1", True, WHITE)
         self._lbl_p2  = self._font_sm.render("P2", True, WHITE)
 
-        bg = pygame.image.load("res/images/bg.jpg")
+        bg = pygame.image.load("assets/images/bg.jpg")
         self._background = pygame.transform.scale(bg, (window_w, window_h))
 
         self._start_btn = pygame.transform.scale(
-            pygame.image.load("res/images/button/start.png"), (310, 100)
+            pygame.image.load("assets/images/button/start.png"), (310, 100)
         )
         self._btn_1p = [
             pygame.transform.scale(
-                pygame.image.load(f"res/images/button/oneplayer{'' if i == 0 else i + 1}.png"),
+                pygame.image.load(f"assets/images/button/oneplayer{'' if i == 0 else i + 1}.png"),
                 (212, 44),
             )
             for i in range(3)
         ]
         self._btn_2p = [
             pygame.transform.scale(
-                pygame.image.load(f"res/images/button/twoplayer{'' if i == 0 else i + 1}.png"),
+                pygame.image.load(f"assets/images/button/twoplayer{'' if i == 0 else i + 1}.png"),
                 (212, 44),
             )
             for i in range(3)
         ]
         self._wait_frames = [
-            pygame.image.load(f"res/images/wait/321-{i}-removebg-preview.png") for i in range(49)
+            pygame.image.load(f"assets/images/wait/321-{i}-removebg-preview.png") for i in range(49)
         ]
 
     def update_button_state(self, btn_name: str, hovered: bool, pressed: bool):

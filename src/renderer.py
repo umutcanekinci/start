@@ -9,7 +9,7 @@ class GameRenderer:
         self._window = window
         self._world = world
 
-        bg = pygame.image.load("res/images/bg.jpg")
+        bg = pygame.image.load("assets/images/bg.jpg")
         self._background = pygame.transform.scale(bg, (world.window_w, world.window_h))
 
         self._font_sm    = pygame.font.SysFont("ComicSansMs", 18)
