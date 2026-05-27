@@ -1,0 +1,10 @@
+[project]
+name = "start"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "pygame-ce",
+]
+
+[tool.uv.sources]
+pygame-core = { path = "src/pygame_core", editable = true }
