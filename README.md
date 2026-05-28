@@ -1,6 +1,6 @@
-# Start
+# The Hunted
 
-My first pygame project — hence the name. A local 1-or-2-player platformer where one player is the vampire and the other is the peasant. Each round the role assignments are randomised.
+My first pygame project. A local 1-or-2-player platformer where one player is the vampire and the other is the peasant. Each round the role assignments are randomised.
 
 ![Gameplay](docs/preview.gif)
 
@@ -36,8 +36,8 @@ In 1-player mode you control **both keysets** and play against the AI.
 ## Running
 
 ```bash
-git clone --recurse-submodules https://github.com/umutcanekinci/start.git
-cd start
+git clone --recurse-submodules https://github.com/umutcanekinci/hunted.git
+cd hunted
 uv sync
 uv run python __main__.py
 ```
@@ -69,7 +69,7 @@ See [CLAUDE.md](CLAUDE.md) for the full architecture overview.
 ## Contributing
 
 1. Fork this repository.
-2. Clone your fork: `git clone --recurse-submodules https://github.com/<you>/start.git`
+2. Clone your fork: `git clone --recurse-submodules https://github.com/<you>/hunted.git`
 3. Create a branch: `git checkout -b feature/<your-feature>`
 4. Commit + push: `git commit -am "<message>" && git push origin feature/<your-feature>`
 5. Open a pull request.
@@ -78,7 +78,7 @@ See [CLAUDE.md](CLAUDE.md) for the full architecture overview.
 
 Umutcan Ekinci — [umutcannekinci@gmail.com](mailto:umutcannekinci@gmail.com)
 
-See also the [contributors](https://github.com/umutcanekinci/start/contributors).
+See also the [contributors](https://github.com/umutcanekinci/hunted/contributors).
 
 ## License
 

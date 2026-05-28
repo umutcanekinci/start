@@ -1,7 +1,7 @@
 VIRTUAL_W = 800
 VIRTUAL_H = 600
 FPS = 60
-TITLE = "START"
+TITLE = "The Hunted"
 FLOOR_Y = 490.0
 
 # Physics

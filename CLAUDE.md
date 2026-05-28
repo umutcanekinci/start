@@ -22,7 +22,7 @@ There are no automated tests or lint configurations in this project.
 
 `__main__.py` injects `src/` and `src/pygame_core/` into `sys.path`, then calls `Game().run()`. `src/game.py` defines `Game`, which inherits from `pygame_core.Application`.
 
-Unlike the project's sibling games (2048-idle-evolution, tower-defense), `start` does **not** use `PanelManager` / `PanelLoaderExt` / YAML config — UI is hand-rolled in `src/menu.py` and `src/renderer.py`, and configuration lives in `src/settings.py` as plain Python constants.
+Unlike the project's sibling games (2048-idle-evolution, tower-defense), the Hunted does **not** use `PanelManager` / `PanelLoaderExt` / YAML config — UI is hand-rolled in `src/menu.py` and `src/renderer.py`, and configuration lives in `src/settings.py` as plain Python constants.
 
 ### pygame_core — Shared Submodule
 
