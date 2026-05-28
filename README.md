@@ -1,6 +1,8 @@
 # The Hunted
 
-My first pygame project. A local 1-or-2-player platformer where one player is the vampire and the other is the peasant. Each round the role assignments are randomised.
+My first-ever pygame project — kept here as a learning artifact. A local 1-or-2-player platformer where one player is the vampire and the other the peasant, with the roles randomised each round.
+
+> **Note on assets:** the code and game logic are mine, but most assets (art, music, sound) are unlicensed placeholders I collected when I was starting out. My later projects use properly-licensed CC0 assets. Please don't reuse the assets here.
 
 ![Gameplay](docs/preview.gif)
 
@@ -66,14 +68,6 @@ assets/                Images and sounds
 
 See [CLAUDE.md](CLAUDE.md) for the full architecture overview.
 
-## Contributing
-
-1. Fork this repository.
-2. Clone your fork: `git clone --recurse-submodules https://github.com/<you>/hunted.git`
-3. Create a branch: `git checkout -b feature/<your-feature>`
-4. Commit + push: `git commit -am "<message>" && git push origin feature/<your-feature>`
-5. Open a pull request.
-
 ## Author
 
 Umutcan Ekinci — [umutcannekinci@gmail.com](mailto:umutcannekinci@gmail.com)
@@ -82,4 +76,6 @@ See also the [contributors](https://github.com/umutcanekinci/hunted/contributors
 
 ## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
+The **code** in this repository is licensed under the MIT License — see the [LICENSE](LICENSE) file.
+
+The **assets** (images, audio, fonts) are **not** covered by that license. They are placeholders gathered from various third-party sources during my first project, before I understood asset licensing, and are not licensed for reuse or redistribution. If you fork this repo, swap them for your own or for properly-licensed alternatives (e.g. [Kenney](https://kenney.nl), CC0).
