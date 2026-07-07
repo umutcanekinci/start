@@ -17,7 +17,7 @@ My first-ever pygame project — kept here as a learning artifact. A local 1-or-
 
 | Menu | Level select | Round in progress |
 |------|--------------|-------------------|
-| ![](docs/screenshot-1.png) | ![](docs/screenshot-2.png) | ![](docs/screenshot-3.png) |
+| ![](docs/screenshots/screenshot-1.png) | ![](docs/screenshots/screenshot-2.png) | ![](docs/screenshots/screenshot-3.png) |
 
 ### Controls
 
