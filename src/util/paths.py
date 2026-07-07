@@ -21,9 +21,9 @@ def resource_root() -> Path:
     """Directory that contains the bundled ``assets/`` tree.
 
     Frozen: the PyInstaller extraction dir. From source: the repo root
-    (``src/paths.py`` -> one level up).
+    (``src/util/paths.py`` -> two levels up).
     """
     bundle = getattr(sys, "_MEIPASS", None)
     if bundle is not None:
         return Path(bundle)
-    return Path(__file__).resolve().parents[1]
+    return Path(__file__).resolve().parents[2]

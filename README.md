@@ -17,7 +17,7 @@ My first-ever pygame project — kept here as a learning artifact. A local 1-or-
 
 | Menu | Level select | Round in progress |
 |------|--------------|-------------------|
-| ![](docs/screenshots/screenshot-1.png) | ![](docs/screenshots/screenshot-2.png) | ![](docs/screenshots/screenshot-3.png) |
+| ![](docs/screenshots/01_main_menu.png) | ![](docs/screenshots/02_level_select.png) | ![](docs/screenshots/03_round_in_progress.png) |
 
 ### Controls
 
@@ -100,6 +100,7 @@ src/renderer.py        Level-select + in-game drawing
 src/audio.py           Menu / game music
 src/cursor.py          Custom multi-state cursor
 src/settings.py        Physics, combat, colors, and 3 level layouts
+src/util/              Frozen-build resource path resolution
 src/pygame_core/       Engine submodule (used only for Application + Mouse + GameObject)
 assets/                Images and sounds
 ```

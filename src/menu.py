@@ -21,18 +21,18 @@ class Menu:
         self._background = pygame.transform.scale(bg, (window_w, window_h))
 
         self._start_btn = pygame.transform.scale(
-            pygame.image.load("assets/images/button/start.png"), (310, 100)
+            pygame.image.load("assets/images/buttons/start.png"), (310, 100)
         )
         self._btn_1p = [
             pygame.transform.scale(
-                pygame.image.load(f"assets/images/button/oneplayer{'' if i == 0 else i + 1}.png"),
+                pygame.image.load(f"assets/images/buttons/oneplayer{'' if i == 0 else i + 1}.png"),
                 (212, 44),
             )
             for i in range(3)
         ]
         self._btn_2p = [
             pygame.transform.scale(
-                pygame.image.load(f"assets/images/button/twoplayer{'' if i == 0 else i + 1}.png"),
+                pygame.image.load(f"assets/images/buttons/twoplayer{'' if i == 0 else i + 1}.png"),
                 (212, 44),
             )
             for i in range(3)

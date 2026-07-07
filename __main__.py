@@ -9,7 +9,7 @@ sys.path.insert(0, str(_ROOT / "src" / "pygame_core"))
 
 # Anchor all cwd-relative asset paths to the resource root so the game works
 # both from source and from a PyInstaller bundle (see paths.py).
-from paths import resource_root
+from util.paths import resource_root
 
 os.chdir(resource_root())
 
