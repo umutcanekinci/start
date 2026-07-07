@@ -29,6 +29,18 @@ My first-ever pygame project — kept here as a learning artifact. A local 1-or-
 
 In 1-player mode you control **both keysets** and play against the AI.
 
+## Download
+
+Grab a ready-to-play build for your OS from the [latest release](https://github.com/umutcanekinci/hunted/releases/latest) — no Python required. Unzip and run:
+
+| OS | Run |
+|----|-----|
+| Windows | Extract `hunted-windows.zip`, run `hunted.exe` |
+| macOS | Extract `hunted-macos.zip`, open `Hunted.app` |
+| Linux | Extract `hunted-linux.zip`, run `./hunted/hunted` |
+
+> macOS Gatekeeper: the app is unsigned, so the first launch needs **right-click → Open** (or `xattr -dr com.apple.quarantine Hunted.app`).
+
 ## Requirements
 
 - Python 3.12+
@@ -47,6 +59,28 @@ uv run python __main__.py
 If you forgot `--recurse-submodules`: `git submodule update --init`.
 
 Without `uv`: `pip install .` then `python __main__.py`.
+
+## Building a standalone bundle
+
+Builds are produced by [PyInstaller](https://pyinstaller.org/) from `hunted.spec`, which bundles `assets/` alongside the executable (onedir). To build locally for your current OS:
+
+```bash
+uv sync --group build
+uv run pyinstaller hunted.spec --noconfirm
+```
+
+The result lands in `dist/hunted/` (`dist/Hunted.app` on macOS).
+
+### Cutting a release
+
+Per-OS bundles for Windows, macOS, and Linux are built and published automatically by [`.github/workflows/release.yml`](.github/workflows/release.yml) when a version tag is pushed:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The workflow builds on each OS, zips the bundle, and attaches all three to a GitHub Release (with auto-generated notes). Use the workflow's **Run workflow** button to test a build without publishing.
 
 ## Project layout
 
