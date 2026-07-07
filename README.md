@@ -31,7 +31,9 @@ In 1-player mode you control **both keysets** and play against the AI.
 
 ## Download
 
-Grab a ready-to-play build for your OS from the [latest release](https://github.com/umutcanekinci/hunted/releases/latest) — no Python required. Unzip and run:
+[![Available on itch.io](https://jessemillar.github.io/available-on-itchio-badge/badge-color.png)](https://umutcanekinci.itch.io/hunted)
+
+Grab a ready-to-play build for your OS from [itch.io](https://umutcanekinci.itch.io/hunted) or the [latest GitHub release](https://github.com/umutcanekinci/hunted/releases/latest) — no Python required. Unzip and run:
 
 | OS | Run |
 |----|-----|
@@ -41,7 +43,7 @@ Grab a ready-to-play build for your OS from the [latest release](https://github.
 
 > macOS Gatekeeper: the app is unsigned, so the first launch needs **right-click → Open** (or `xattr -dr com.apple.quarantine Hunted.app`).
 
-## Requirements
+## Requirements (from source)
 
 - Python 3.12+
 - [pygame-ce](https://github.com/pygame-community/pygame-ce) (resolved automatically from `pyproject.toml` / `uv.lock`)
@@ -80,7 +82,7 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-The workflow builds on each OS, zips the bundle, and attaches all three to a GitHub Release (with auto-generated notes). Use the workflow's **Run workflow** button to test a build without publishing.
+The workflow builds on each OS, zips the bundle, attaches all three to a GitHub Release (with auto-generated notes), and pushes each build to its [itch.io](https://umutcanekinci.itch.io/hunted) channel via [Butler](https://itch.io/docs/butler/). Use the workflow's **Run workflow** button to test a build without publishing.
 
 ## Project layout
 
