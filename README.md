@@ -31,9 +31,9 @@ In 1-player mode you control **both keysets** and play against the AI.
 
 ## Download
 
-[![Available on itch.io](https://jessemillar.github.io/available-on-itchio-badge/badge-color.png)](https://umutcanekinci.itch.io/hunted)
+[![Available on itch.io](https://jessemillar.github.io/available-on-itchio-badge/badge-color.png)](https://umutcanekinci.itch.io/the-hunted)
 
-Grab a ready-to-play build for your OS from [itch.io](https://umutcanekinci.itch.io/hunted) or the [latest GitHub release](https://github.com/umutcanekinci/hunted/releases/latest) — no Python required. Unzip and run:
+Grab a ready-to-play build for your OS from [itch.io](https://umutcanekinci.itch.io/the-hunted) or the [latest GitHub release](https://github.com/umutcanekinci/hunted/releases/latest) — no Python required. Unzip and run:
 
 | OS | Run |
 |----|-----|
@@ -82,7 +82,7 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-The workflow builds on each OS, zips the bundle, attaches all three to a GitHub Release (with auto-generated notes), and pushes each build to its [itch.io](https://umutcanekinci.itch.io/hunted) channel via [Butler](https://itch.io/docs/butler/). Use the workflow's **Run workflow** button to test a build without publishing.
+The workflow builds on each OS, zips the bundle, attaches all three to a GitHub Release (with auto-generated notes), and pushes each build to its [itch.io](https://umutcanekinci.itch.io/the-hunted) channel via [Butler](https://itch.io/docs/butler/). Use the workflow's **Run workflow** button to test a build without publishing.
 
 ## Project layout
 

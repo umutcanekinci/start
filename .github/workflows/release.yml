@@ -117,7 +117,7 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           ITCH_USER: umutcanekinci
-          ITCH_GAME: hunted
+          ITCH_GAME: the-hunted
           CHANNEL: windows
           VERSION: ${{ github.ref_name }}
           PACKAGE: itch/windows
@@ -127,7 +127,7 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           ITCH_USER: umutcanekinci
-          ITCH_GAME: hunted
+          ITCH_GAME: the-hunted
           CHANNEL: linux
           VERSION: ${{ github.ref_name }}
           PACKAGE: itch/linux
@@ -137,7 +137,7 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           ITCH_USER: umutcanekinci
-          ITCH_GAME: hunted
+          ITCH_GAME: the-hunted
           CHANNEL: osx
           VERSION: ${{ github.ref_name }}
           PACKAGE: itch/osx
