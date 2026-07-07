@@ -3,6 +3,7 @@ import random
 import pygame
 from pygame_core.application import Application
 from pygame_core.mouse import Mouse
+from pygame_core.splash_screen import SplashScreen
 import settings
 from audio import AudioManager
 from combat import CombatSystem
@@ -33,6 +34,11 @@ class Game(Application):
             mouse=_mouse,
         )
         _mouse.set_cursor_visible(False)
+
+        self._splash = SplashScreen(
+            ["assets/images/branding/pygame_logo.png"],
+            fade_ms=settings.SPLASH_FADE_MS, hold_ms=settings.SPLASH_HOLD_MS,
+        )
 
         self._world = GameWorld(window_w=settings.VIRTUAL_W, window_h=settings.VIRTUAL_H)
         self._world.platforms = [Platform(loc, w, h) for loc, w, h in settings.LEVELS[0]['platforms']]
@@ -108,6 +114,14 @@ class Game(Application):
         self._refresh_scores()
 
     # -------------------------------------------------------- Application overrides
+
+    def run(self) -> None:
+        # SplashScreen runs its own loop with direct pygame.display.update()
+        # calls, bypassing Application._present()'s scale step -- draw it
+        # straight onto the real display surface rather than the offscreen
+        # logical canvas, or it would never actually reach the screen.
+        self._splash.run(self.display_surface, self.clock, self._fps)
+        super().run()
 
     def on_exit_request(self) -> None:
         if self._state == self.STATE_GAME:
