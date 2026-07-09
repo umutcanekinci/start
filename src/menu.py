@@ -1,7 +1,8 @@
 import pygame
 
 from background import ParallaxBackground
-from settings import WHITE
+from entities import Platform
+from settings import GROUND_Y, WHITE
 
 
 class Menu:
@@ -19,6 +20,7 @@ class Menu:
         self._lbl_p2  = self._font_sm.render("P2", True, WHITE)
 
         self._background = ParallaxBackground(window_w, window_h)
+        self._ground = Platform((0, GROUND_Y), window_w, int(window_h - GROUND_Y))
 
         self._start_btn = pygame.transform.scale(
             pygame.image.load("assets/images/buttons/start.png"), (310, 100)
@@ -51,6 +53,7 @@ class Menu:
     def draw(self, surface: pygame.Surface, countdown: int, p1, p2=None):
         """Draw the main menu. Pass p2=None for single-player mode."""
         surface.blit(self._background.surface, (0, 0))
+        self._ground.draw(surface)
         cx, cy = self.window_w // 2, self.window_h // 2
 
         if countdown == 100:
