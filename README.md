@@ -117,4 +117,9 @@ See also the [contributors](https://github.com/umutcanekinci/hunted/contributors
 
 The **code** in this repository is licensed under the MIT License — see the [LICENSE](LICENSE) file.
 
-The **assets** (images, audio, fonts) are **not** covered by that license. They are placeholders gathered from various third-party sources during my first project, before I understood asset licensing, and are not licensed for reuse or redistribution. If you fork this repo, swap them for your own or for properly-licensed alternatives (e.g. [Kenney](https://kenney.nl), CC0).
+Most remaining **assets** (character sprites, buttons, cursor, jump sound) are **not** covered by that license. They're placeholders gathered from various third-party sources during my first project, before I understood asset licensing, and are not licensed for reuse or redistribution. If you fork this repo, swap them for your own or for properly-licensed alternatives (e.g. [Kenney](https://kenney.nl), CC0). Work is ongoing to replace these with properly-licensed assets — see below for what's already been swapped in.
+
+### Credits
+
+- **Background art** (`assets/images/bg_layers/`, `platfor_tile.png`) — CC0.
+- **Music** (`menu_theme.wav`, `chase_theme.wav`) — "8-Bit Beat'em Up Soundtrack" by [wyver9](https://wyver9.bandcamp.com/album/8-bit-beatem-up-soundtrack/), licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Also on [OpenGameArt](https://opengameart.org/).
