@@ -1,5 +1,6 @@
 import pygame
 
+from background import ParallaxBackground
 from settings import WHITE
 
 
@@ -17,8 +18,7 @@ class Menu:
         self._lbl_p1  = self._font_sm.render("P1", True, WHITE)
         self._lbl_p2  = self._font_sm.render("P2", True, WHITE)
 
-        bg = pygame.image.load("assets/images/bg.jpg")
-        self._background = pygame.transform.scale(bg, (window_w, window_h))
+        self._background = ParallaxBackground(window_w, window_h)
 
         self._start_btn = pygame.transform.scale(
             pygame.image.load("assets/images/buttons/start.png"), (310, 100)
@@ -45,9 +45,12 @@ class Menu:
         setattr(self, f'_btn_{btn_name}_hover', hovered and not pressed)
         setattr(self, f'_btn_{btn_name}_click', hovered and pressed)
 
+    def randomize_background(self) -> None:
+        self._background.randomize()
+
     def draw(self, surface: pygame.Surface, countdown: int, p1, p2=None):
         """Draw the main menu. Pass p2=None for single-player mode."""
-        surface.blit(self._background, (0, 0))
+        surface.blit(self._background.surface, (0, 0))
         cx, cy = self.window_w // 2, self.window_h // 2
 
         if countdown == 100:

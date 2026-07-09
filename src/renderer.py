@@ -1,6 +1,8 @@
 import pygame
 
 import settings
+from background import ParallaxBackground
+from entities import Platform
 from world import GameWorld
 
 
@@ -9,8 +11,10 @@ class GameRenderer:
         self._window = window
         self._world = world
 
-        bg = pygame.image.load("assets/images/bg.jpg")
-        self._background = pygame.transform.scale(bg, (world.window_w, world.window_h))
+        self._background = ParallaxBackground(world.window_w, world.window_h)
+        self._ground = Platform(
+            (0, settings.GROUND_Y), world.window_w, int(world.window_h - settings.GROUND_Y)
+        )
 
         self._font_sm    = pygame.font.SysFont("ComicSansMs", 18)
         self._font_hud   = pygame.font.SysFont("ComicSansMs", 22)
@@ -21,8 +25,12 @@ class GameRenderer:
 
     # ------------------------------------------------------------------ game
 
+    def randomize_background(self) -> None:
+        self._background.randomize()
+
     def draw_game(self, p1, p2, vampire, current_level: int, score_surfs):
-        self._window.blit(self._background, (0, 0))
+        self._window.blit(self._background.surface, (0, 0))
+        self._ground.draw(self._window)
 
         for plat in self._world.platforms:
             plat.draw(self._window)
@@ -87,7 +95,7 @@ class GameRenderer:
     # ------------------------------------------------------------ level select
 
     def draw_level_select(self, pos):
-        self._window.blit(self._background, (0, 0))
+        self._window.blit(self._background.surface, (0, 0))
 
         overlay = pygame.Surface((self._world.window_w, self._world.window_h), pygame.SRCALPHA)
         overlay.fill((0, 0, 0, 120))

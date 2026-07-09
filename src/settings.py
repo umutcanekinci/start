@@ -3,6 +3,7 @@ VIRTUAL_H = 600
 FPS = 60
 TITLE = "The Hunted"
 FLOOR_Y = 490.0
+GROUND_Y = 550  # visual ground-tile top; matches the player foot line when standing on FLOOR_Y
 
 # Startup splash (pygame_core.SplashScreen): fade-in then hold, per image
 SPLASH_FADE_MS = 1500

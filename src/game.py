@@ -129,11 +129,13 @@ class Game(Application):
             self._world.bullets.clear()
             self._reset_players()
             self._audio.play_menu()
+            self._menu.randomize_background()
             self._countdown = 100
             self._state = self.STATE_MENU
         elif self._state == self.STATE_LEVEL_SELECT:
             self._reset_players()
             self._audio.play_menu()
+            self._menu.randomize_background()
             self._countdown = 100
             self._state = self.STATE_MENU
         else:
@@ -189,6 +191,7 @@ class Game(Application):
         if self._countdown == 60:
             self._audio.pause_all()
             self._audio.stop_menu()
+            self._renderer.randomize_background()
             self._state = self.STATE_LEVEL_SELECT
 
     def _update_menu_button_states(self, pos) -> None:
@@ -250,6 +253,7 @@ class Game(Application):
             p.on_ground = True
             p.hp = settings.MAX_HP
 
+        self._renderer.randomize_background()
         self._audio.play_game()
 
         self._vampire = random.choice((self._p1, self._p2))
@@ -267,4 +271,5 @@ class Game(Application):
             self._vampire, self._peasant = self._combat.begin_round(
                 self._vampire, self._p1, self._p2
             )
+            self._renderer.randomize_background()
             self._refresh_scores()

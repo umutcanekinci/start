@@ -195,15 +195,39 @@ class Player:
 
 
 class Platform:
+    _tile_cache: dict[int, pygame.Surface] = {}
+
     def __init__(self, location: tuple, width: int, height: int):
         self.x, self.y = location
         self.width     = width
         self.height    = height
-        img = pygame.image.load("assets/images/platform.png")
-        self.image = pygame.transform.scale(img, (width, height))
+        self.tile      = self._get_tile(height)
+
+    @classmethod
+    def _get_tile(cls, size: int) -> pygame.Surface:
+        """A square tile scaled to `size`, cached per platform height.
+
+        platfor_tile.png is a seamless 128x128 tile, not a stretchable
+        banner -- scaling it non-uniformly to a platform's full w x h would
+        squash the grass top, so it's kept square and tiled edge-to-edge
+        across the platform width instead.
+        """
+        tile = cls._tile_cache.get(size)
+        if tile is None:
+            img  = pygame.image.load("assets/images/platfor_tile.png").convert_alpha()
+            tile = pygame.transform.scale(img, (size, size))
+            cls._tile_cache[size] = tile
+        return tile
 
     def draw(self, surface: pygame.Surface):
-        surface.blit(self.image, (self.x, self.y))
+        tile_w    = self.tile.get_width()
+        x         = self.x
+        remaining = self.width
+        while remaining > 0:
+            w = min(tile_w, remaining)
+            surface.blit(self.tile, (x, self.y), (0, 0, w, self.height))
+            x += w
+            remaining -= w
 
 
 class Projectile:
