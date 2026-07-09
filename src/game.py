@@ -35,6 +35,15 @@ class Game(Application):
         )
         _mouse.set_cursor_visible(False)
 
+        # pygame_core's self.window now always matches the real display 1:1
+        # (it's rebuilt from scratch on every mode/resolution change) -- it's
+        # no longer a fixed authored-resolution surface. Hunted's entire
+        # layout (platforms, HUD, buttons) is still hand-authored in fixed
+        # 800x600 pixel coordinates, so everything draws onto this canvas
+        # instead, and _present_canvas() letterboxes it onto self.window
+        # every frame (see draw()).
+        self._canvas = pygame.Surface((settings.VIRTUAL_W, settings.VIRTUAL_H)).convert()
+
         self._splash = SplashScreen(
             ["assets/images/branding/pygame_logo.png"],
             fade_ms=settings.SPLASH_FADE_MS, hold_ms=settings.SPLASH_HOLD_MS,
@@ -45,7 +54,7 @@ class Game(Application):
 
         self._menu     = Menu(settings.VIRTUAL_W, settings.VIRTUAL_H, self._cursor)
         self._audio    = AudioManager()
-        self._renderer = GameRenderer(self.window, self._world)
+        self._renderer = GameRenderer(self._canvas, self._world)
         self._combat   = CombatSystem(self._world)
 
         self._font_hud   = pygame.font.SysFont("ComicSansMs", 22)
@@ -156,22 +165,53 @@ class Game(Application):
             self._update_game()
 
     def draw(self) -> None:
-        pos = self.mouse.position
+        pos = self._authored_mouse_pos()
         if self._state == self.STATE_MENU:
             p2 = self._p2 if self._world.two_players else None
-            self._menu.draw(self.window, self._countdown, self._p1, p2)
+            self._menu.draw(self._canvas, self._countdown, self._p1, p2)
         elif self._state == self.STATE_LEVEL_SELECT:
             self._renderer.draw_level_select(pos)
         elif self._state == self.STATE_GAME:
             self._renderer.draw_game(
                 self._p1, self._p2, self._vampire, self._current_level, self._score_surfs
             )
+        self._present_canvas()
+
+    def _fit_rect(self) -> pygame.Rect:
+        """Largest rect that fits self._canvas centered inside self.window
+        while preserving the canvas's aspect ratio -- self.window is
+        whatever size/aspect the real display currently is, so this is
+        recomputed every frame rather than cached."""
+        dst_w, dst_h = self.window.get_size()
+        src_w, src_h = self._canvas.get_size()
+        scale = min(dst_w / src_w, dst_h / src_h)
+        w, h = round(src_w * scale), round(src_h * scale)
+        return pygame.Rect((dst_w - w) // 2, (dst_h - h) // 2, w, h)
+
+    def _present_canvas(self) -> None:
+        rect = self._fit_rect()
+        if rect.size == self.window.get_size():
+            pygame.transform.scale(self._canvas, self.window.get_size(), self.window)
+        else:
+            self.window.fill(settings.BLACK)
+            pygame.transform.scale(self._canvas, rect.size, self.window.subsurface(rect))
+
+    def _authored_mouse_pos(self) -> tuple[float, float]:
+        """Real mouse position (in self.window's dynamic space) remapped
+        into the fixed 800x600 space every button rect/card rect is
+        authored against."""
+        rect = self._fit_rect()
+        mx, my = self.mouse.position
+        return (
+            (mx - rect.x) * (settings.VIRTUAL_W / rect.width),
+            (my - rect.y) * (settings.VIRTUAL_H / rect.height),
+        )
 
     # -------------------------------------------------------------------- menu
 
     def _handle_menu_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.MOUSEBUTTONUP:
-            pos = self.mouse.position
+            pos = self._authored_mouse_pos()
             if self._btn_rect('start').collidepoint(pos):
                 self._countdown = 0
             elif self._btn_rect('1p').collidepoint(pos):
@@ -183,7 +223,7 @@ class Game(Application):
                 self._p2.control = "L"
 
     def _update_menu(self) -> None:
-        self._update_menu_button_states(self.mouse.position)
+        self._update_menu_button_states(self._authored_mouse_pos())
         self._step_intro()
 
         if self._countdown < 100:
@@ -223,7 +263,7 @@ class Game(Application):
     # ---------------------------------------------------------------- level select
 
     def _update_level_select(self) -> None:
-        pos = self.mouse.position
+        pos = self._authored_mouse_pos()
         any_hover = any(
             self._renderer.level_card_rect(i).collidepoint(pos)
             for i in range(len(settings.LEVELS))
@@ -232,7 +272,7 @@ class Game(Application):
 
     def _handle_level_select_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.MOUSEBUTTONUP:
-            pos = self.mouse.position
+            pos = self._authored_mouse_pos()
             for i in range(len(settings.LEVELS)):
                 if self._renderer.level_card_rect(i).collidepoint(pos):
                     self._current_level = i

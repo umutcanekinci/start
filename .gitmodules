@@ -1,5 +1,5 @@
 [submodule "src/pygame_core"]
 	path = src/pygame_core
 	url = https://github.com/umutcanekinci/pygame-core.git
-	branch = fix/aspect-ratio-letterbox
+	branch = main
 	update = merge
