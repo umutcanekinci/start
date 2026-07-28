@@ -22,11 +22,11 @@ There are no automated tests or lint configurations in this project.
 
 `__main__.py` injects `src/` and `src/pygame_core/` into `sys.path`, then calls `Game().run()`. `src/game.py` defines `Game`, which inherits from `pygame_core.Application`.
 
-Unlike the project's sibling games (2048-idle-evolution, tower-defense), the Hunted does **not** use `PanelManager` / `PanelLoaderExt` / YAML config — UI is hand-rolled in `src/menu.py` and `src/renderer.py`, and configuration lives in `src/settings.py` as plain Python constants.
+Unlike its sibling games that use the YAML-driven panel system (`chokepoint`, `highrise`, `standoff`, `terraria`), the Hunted does **not** use `PanelManager` / `PanelLoaderExt` / YAML config — UI is hand-rolled in `src/menu.py` and `src/renderer.py`, and configuration lives in `src/settings.py` as plain Python constants (`artifical-chaos` opts out the same way).
 
 ### pygame_core — Shared Submodule
 
-`src/pygame_core/` is a git submodule pointing at `https://github.com/umutcanekinci/pygame-core.git`. The same submodule is used by `2048-idle-evolution`, `terraria`, and `tower-defense`. Changes here propagate to all four projects — bump via `scripts/sync-pygame-core.bat`.
+`src/pygame_core/` is a git submodule pointing at `https://github.com/umutcanekinci/pygame-core.git`. The same submodule is used by `chokepoint`, `highrise`, `standoff`, `terraria`, and `artifical-chaos`. Changes here propagate to all six projects — bump via `scripts/sync-pygame-core.bat`.
 
 This project uses only a small slice of pygame_core: `Application`, `Mouse`, and `GameObject` (for `Cursor`).
 
@@ -78,4 +78,4 @@ None. Scores and round state are kept in memory only.
 
 ### What's missing relative to the modern sibling projects
 
-This project predates the YAML-driven layout, the `app/domain/gameplay/ui` package split, and `pygame_core.AssetManager`. If extending significantly, consider porting it onto those patterns (see `2048-idle-evolution` / `tower-defense` for examples).
+This project predates the YAML-driven layout, the `app/domain/gameplay/ui` package split, and `pygame_core.AssetManager`. If extending significantly, consider porting it onto those patterns (see `chokepoint` / `highrise` / `standoff` / `terraria` for examples).
