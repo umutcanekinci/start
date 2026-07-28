@@ -11,7 +11,7 @@ chokepoint/highrise there's nothing on disk to worry about mutating.
 import sys
 
 sys.path.insert(0, "src")
-sys.path.insert(0, "src/pygame_core")
+sys.path.insert(0, "src/pygamine")
 
 
 def boot_game() -> None:

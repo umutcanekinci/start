@@ -10,7 +10,7 @@ uv sync             # preferred — installs the locked dep set
 # or for users without uv:
 pip install .       # installs pygame-ce from pyproject.toml
 
-# Run the game (__main__.py adds src/ and src/pygame_core/ to sys.path)
+# Run the game (__main__.py adds src/ and src/pygamine/ to sys.path)
 python __main__.py
 ```
 
@@ -20,15 +20,15 @@ There are no automated tests or lint configurations in this project.
 
 ### Entry Point and Game Class
 
-`__main__.py` injects `src/` and `src/pygame_core/` into `sys.path`, then calls `Game().run()`. `src/game.py` defines `Game`, which inherits from `pygame_core.Application`.
+`__main__.py` injects `src/` and `src/pygamine/` into `sys.path`, then calls `Game().run()`. `src/game.py` defines `Game`, which inherits from `pygamine.Application`.
 
 Unlike its sibling games that use the YAML-driven panel system (`chokepoint`, `highrise`, `standoff`, `terraria`), the Hunted does **not** use `PanelManager` / `PanelLoaderExt` / YAML config — UI is hand-rolled in `src/menu.py` and `src/renderer.py`, and configuration lives in `src/settings.py` as plain Python constants (`artifical-chaos` opts out the same way).
 
-### pygame_core — Shared Submodule
+### pygamine — Shared Submodule
 
-`src/pygame_core/` is a git submodule pointing at `https://github.com/umutcanekinci/pygame-core.git`. The same submodule is used by `chokepoint`, `highrise`, `standoff`, `terraria`, and `artifical-chaos`. Changes here propagate to all six projects — bump via `scripts/sync-pygame-core.bat`.
+`src/pygamine/` is a git submodule pointing at `https://github.com/umutcanekinci/pygamine.git`. The same submodule is used by `chokepoint`, `highrise`, `standoff`, `terraria`, and `artifical-chaos`. Changes here propagate to all six projects — bump via `scripts/sync-pygamine.bat`.
 
-This project uses only a small slice of pygame_core: `Application`, `Mouse`, and `GameObject` (for `Cursor`).
+This project uses only a small slice of pygamine: `Application`, `Mouse`, and `GameObject` (for `Cursor`).
 
 ### Game State Machine
 
@@ -51,7 +51,7 @@ State transitions happen in-band inside the handlers (e.g. `_update_menu` flips 
 | `_audio` | `AudioManager` (`src/audio.py`) | Two music tracks (menu / game) on the default mixer |
 | `_renderer` | `GameRenderer` (`src/renderer.py`) | Level-select and in-game drawing |
 | `_combat` | `CombatSystem` (`src/combat.py`) | Bullet physics, contact damage, round transitions |
-| `_cursor` | `Cursor` (`src/cursor.py`, extends `pygame_core.GameObject`) | Custom mouse cursor with normal/click/click2/help/writing states |
+| `_cursor` | `Cursor` (`src/cursor.py`, extends `pygamine.GameObject`) | Custom mouse cursor with normal/click/click2/help/writing states |
 
 ### Players and Input
 
@@ -78,4 +78,4 @@ None. Scores and round state are kept in memory only.
 
 ### What's missing relative to the modern sibling projects
 
-This project predates the YAML-driven layout, the `app/domain/gameplay/ui` package split, and `pygame_core.AssetManager`. If extending significantly, consider porting it onto those patterns (see `chokepoint` / `highrise` / `standoff` / `terraria` for examples).
+This project predates the YAML-driven layout, the `app/domain/gameplay/ui` package split, and `pygamine.AssetManager`. If extending significantly, consider porting it onto those patterns (see `chokepoint` / `highrise` / `standoff` / `terraria` for examples).

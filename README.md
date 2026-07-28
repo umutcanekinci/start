@@ -91,7 +91,7 @@ The workflow builds on each OS, zips the bundle, attaches all three to a GitHub 
 ## Project layout
 
 ```
-__main__.py            Entry point — injects src/ + src/pygame_core/ into sys.path
+__main__.py            Entry point — injects src/ + src/pygamine/ into sys.path
 src/game.py            Game class — state machine over menu / level-select / game
 src/world.py           GameWorld dataclass (platforms, bullets, window dims)
 src/entities.py        Player, Platform, Projectile
@@ -103,7 +103,7 @@ src/audio.py           Menu / game music
 src/cursor.py          Custom multi-state cursor
 src/settings.py        Physics, combat, colors, and 3 level layouts
 src/util/              Frozen-build resource path resolution
-src/pygame_core/       Engine submodule (used only for Application + Mouse + GameObject)
+src/pygamine/       Engine submodule (used only for Application + Mouse + GameObject)
 assets/                Images and sounds
 ```
 
