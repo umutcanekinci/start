@@ -1,6 +1,6 @@
 import pygame
 
-from pygamine.ecs.game_object import GameObject
+from pygamine import GameObject
 
 
 class Cursor(GameObject):

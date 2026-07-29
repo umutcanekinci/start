@@ -1,9 +1,9 @@
 import random
 
 import pygame
-from pygamine.application import Application
-from pygamine.mouse import Mouse
-from pygamine.splash_screen import SplashScreen
+from pygamine import Application
+from pygamine import Mouse
+from pygamine import SplashScreen
 import settings
 from audio import AudioManager
 from combat import CombatSystem
