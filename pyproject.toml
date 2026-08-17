@@ -29,4 +29,9 @@ testpaths = ["tests"]
 # own code. "src" alone finds the flat top-level files (game.py, entities.py,
 # ...) but coverage.py's static discovery of *unexecuted* files doesn't
 # reliably recurse into subdirectories, so src/util is listed separately.
+# omit is needed now that tests actually construct Application/GameObject
+# (Game(), Cursor()) -- without it, pygamine's own modules get pulled into
+# this app's report the moment they're imported, contrary to the comment
+# above (previously masked only because no test happened to exercise them).
 source = ["src", "src/util"]
+omit = ["src/pygamine/*"]
